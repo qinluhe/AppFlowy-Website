@@ -6,6 +6,8 @@ import Footer from '@/components/layout/footer';
 import { useState } from 'react';
 import { DarkContext } from '@/lib/hooks/use-dark-context';
 import { GitContext } from '@/lib/hooks/use-git-context';
+import NextTopLoader from 'nextjs-toploader';
+import { usePathname } from 'next/navigation';
 
 export default function App({
   children,
@@ -21,9 +23,15 @@ export default function App({
 }) {
   const [dark, setDark] = useState<boolean | undefined>(isDark);
 
+  const pathname = usePathname();
+
   return (
     <GitContext.Provider value={gitData}>
       <DarkContext.Provider value={dark}>
+        {pathname.includes('downloading') ? null : (
+          <NextTopLoader showSpinner={false} color={isDark ? '#601DAA' : '#9327FF'} />
+        )}
+
         <div className={'appflowy-app'}>
           <Header />
           <main>{children}</main>
