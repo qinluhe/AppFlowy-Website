@@ -38,7 +38,12 @@ function Footer({ onChangeMode }: { onChangeMode: (dark?: boolean) => void }) {
                       {child.name}
                     </a>
                   ) : (
-                    <Link href={child.link || ''}>{child.name}</Link>
+                    <Link href={child.link || ''}>
+                      <span className={'relative'}>
+                        {child.name}
+                        {child.badge && <span className={'badge'}>{child.badge}</span>}
+                      </span>
+                    </Link>
                   )}
                 </div>
               ))}
